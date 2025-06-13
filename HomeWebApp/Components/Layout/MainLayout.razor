@@ -1,0 +1,37 @@
+﻿@using MudBlazor.Utilities
+@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" Theme="MyCustomTheme"/>
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>    
+    <MudMainContent Class="pa-0" Style="max-height: calc(100vh - (var(--mud-appbar-height))); height: auto; overflow-y: auto;">
+        @Body
+    </MudMainContent>
+    <MudAppBar Bottom="true" Fixed="true">
+        <MudButton Variant="Variant.Text" Href="/" Disabled=@(!_loadingService.IsLoaded)><strong>HomeApp</strong>&nbsp;v0.0.1-alpha</MudButton>
+        <MudSpacer />
+        <MudMenu Variant="Variant.Text" Icon="@Icons.Material.Filled.Menu" Disabled="@(!_loadingService.IsLoaded)">
+            <MudMenuItem Href="/radio" Label="Radio" Icon="@Icons.Material.Filled.Radio" />
+            <MudMenuItem Label="Notatki" Icon="@Icons.Material.Filled.Note" Disabled />
+            <MudMenuItem Label="Aktywność" Icon="@Icons.Material.Filled.DirectionsRun" Disabled/>
+            <MudMenuItem Label="Kalorie" Icon="@Icons.Material.Filled.Fastfood" Disabled/>
+            <MudMenuItem Label="Lista Zadań" Icon="@Icons.Material.Filled.Checklist" Disabled/>
+            <MudMenuItem Href="/expenses" Label="Wydatki" Icon="@Icons.Material.Filled.AttachMoney" />
+            <MudMenuItem Href="/settings" Label="Ustawienia" Icon="@Icons.Material.Filled.Settings" Disabled />
+        </MudMenu>
+    </MudAppBar>
+</MudLayout>
+
+<audio id="myAudio"></audio>
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+
+

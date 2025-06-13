@@ -1,0 +1,32 @@
+﻿@page "/expenses/summary"
+@using HomeWebApp.Services
+
+<MudPaper>
+    <MudText Typo="Typo.h4" Class="pa-2" Align="Align.Center">Wydatki</MudText>
+</MudPaper>
+
+<MudStack Class="pa-8" Row="true">
+<MudSelect @bind-Value="Year" Label="Rok">
+    <MudSelectItem Value="2025">2025</MudSelectItem>
+    <MudSelectItem Value="2026">2026</MudSelectItem>
+</MudSelect>
+    <MudSelect @bind-Value="Month" Label="Miesiąc">
+        <MudSelectItem Value="1">Styczeń</MudSelectItem>
+        <MudSelectItem Value="2">Luty</MudSelectItem>
+        <MudSelectItem Value="3">Marzec</MudSelectItem>
+        <MudSelectItem Value="4">Kwiecień</MudSelectItem>
+        <MudSelectItem Value="5">Maj</MudSelectItem>
+        <MudSelectItem Value="6">Czerwiec</MudSelectItem>
+        <MudSelectItem Value="7">Lipiec</MudSelectItem>
+        <MudSelectItem Value="8">Sierpień</MudSelectItem>
+        <MudSelectItem Value="9">Wrzesień</MudSelectItem>
+        <MudSelectItem Value="10">Październik</MudSelectItem>
+        <MudSelectItem Value="11">Listopad</MudSelectItem>
+        <MudSelectItem Value="12">Grudzień</MudSelectItem>
+    </MudSelect>
+</MudStack>
+<MudStack Class="pa-8" Spacing="3" AlignItems="AlignItems.Center">                
+    <MudChart ChartType="ChartType.Donut" Width="50vw" InputData="@([.. _expenseService.Totals[Month]])" InputLabels="@_expenseService.DonutLabels" ChartOptions="@_expenseService.ChartOptions"></MudChart>
+    <MudText Typo="Typo.h3">@_expenseService.Totals[Month].Sum()</MudText>
+    @* <MudChart ChartType="ChartType.Line" Width="90vw" XAxisLabels="@_xAxisLabels" ChartSeries="@_expenseService.Totals"></MudChart> *@
+</MudStack>

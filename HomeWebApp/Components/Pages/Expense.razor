@@ -1,0 +1,50 @@
+﻿@page "/expense/{id:int}"
+
+<MudPaper>
+    <MudStack Row="true" StretchItems="StretchItems.End">
+        <MudIconButton Href="/expenses" Icon="@Icons.Material.Filled.ArrowBack"/>
+        @if (!IsEditing)
+        {
+            <MudText Typo="Typo.h4" Class="pa-3" Align="Align.Center">Wydatek</MudText>
+        }
+        else if(IsNew)
+        {
+            <MudText Typo="Typo.h4" Class="pa-3" Align="Align.Center">Nowy Wydatek</MudText>
+        }
+        else
+        {
+            <MudText Typo="Typo.h4" Class="pa-3" Align="Align.Center">Edycja Wydatku</MudText>
+        }
+    </MudStack>
+</MudPaper>
+<MudStack Class="pa-6">
+    @if (!IsEditing)
+    {
+        <MudButton OnClick="OnEditClick">Edytuj</MudButton>
+    }
+    else
+    {
+        <MudButton OnClick="OnSaveClick">Zapisz</MudButton>
+        @if (IsSaving)
+        {
+            <MudProgressLinear Indeterminate="true" />
+        }
+        @if(!IsNew)
+        {
+            <MudButton Color="Color.Error" OnClick="OnDeleteClick">Usuń</MudButton>
+        }
+        
+    }
+
+    <MudTextField @bind-Value="_current.Date" Label="Data" Variant="Variant.Outlined" ReadOnly="@(!IsEditing)"></MudTextField>
+    <MudTextField @bind-Value="_current.Description" Label="Opis" Variant="Variant.Outlined" ReadOnly="@(!IsEditing)"></MudTextField>
+    <MudSelect @bind-Value="_current.Category" T="ExpenseCategory" MultiSelection="false" Variant="Variant.Outlined" Label="Kategoria">
+        @foreach(var category in _expenseService.Categories)
+        {
+            <MudSelectItem T="ExpenseCategory" Value="@category">@category</MudSelectItem>
+        }
+    </MudSelect>
+    <MudTextField @bind-Value="_current.Amount" Label="Wartość" Variant="Variant.Outlined" ReadOnly="@(!IsEditing)"></MudTextField>
+    <MudImage Src="https://placehold.co/300x450"></MudImage>    
+    
+</MudStack>

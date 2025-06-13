@@ -1,0 +1,20 @@
+﻿@page "/expenses/list"
+@using HomeWebApp.Services
+
+<MudPaper>
+    <MudText Typo="Typo.h4" Class="pa-2" Align="Align.Center">Wydatki</MudText>
+</MudPaper>
+
+<MudStack Class="pa-2" Spacing="3">
+    <MudButton Href="/expense/-1" Variant="Variant.Filled" Class="pa-6" FullWidth="true" Color="Color.Primary">Dodaj</MudButton>
+    @foreach (var item in _expenseService.Expenses)
+    {
+        <MudButton Href="@("/expense/" + item.Id)" Variant="Variant.Filled" Class="pa-6" FullWidth="true" Style="@("color: " + item.Category.Color + ";")">
+            <MudGrid>
+                <MudItem xs="4">@item.Date</MudItem>
+                <MudItem xs="4">@item.Description</MudItem>
+                <MudItem xs="4">@item.Amount</MudItem>
+            </MudGrid>
+        </MudButton>
+    }
+</MudStack>
