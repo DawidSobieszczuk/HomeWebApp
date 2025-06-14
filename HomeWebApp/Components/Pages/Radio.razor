@@ -4,9 +4,8 @@
     {
         <MudButton OnClick="@(() => OnStationClick(item.Id))" Variant="Variant.Filled" Class="pa-6" FullWidth="true" Color="@(_currentId == item.Id ? Color.Primary : Color.Default)">
             <MudGrid>
-                <MudItem xs="3">@item.Name</MudItem>
-                <MudItem xs="8">@item.Url</MudItem>
-                <MudItem xs="1"><MudIconButton OnClick="@(() => OnPlayClick(item.Id))" Size="Size.Small" Icon="@(_currentId == item.Id && _isPlaying ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" /></MudItem>
+                <MudItem xs="10">@item.Name</MudItem>
+                <MudItem xs="2"><MudIconButton OnClick="@(() => OnPlayClick(item.Id))" Size="Size.Small" Icon="@(_currentId == item.Id && _isPlaying ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" /></MudItem>
             </MudGrid>
         </MudButton>
     }

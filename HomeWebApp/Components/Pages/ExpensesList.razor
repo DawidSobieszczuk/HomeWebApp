@@ -1,4 +1,4 @@
-﻿@page "/expenses/list"
+﻿@page "/expense/list"
 @using HomeWebApp.Services
 
 <MudPaper>
@@ -6,7 +6,6 @@
 </MudPaper>
 
 <MudStack Class="pa-2" Spacing="3">
-    <MudButton Href="/expense/-1" Variant="Variant.Filled" Class="pa-6" FullWidth="true" Color="Color.Primary">Dodaj</MudButton>
     @foreach (var item in _expenseService.Expenses)
     {
         <MudButton Href="@("/expense/" + item.Id)" Variant="Variant.Filled" Class="pa-6" FullWidth="true" Style="@("color: " + item.Category.Color + ";")">
@@ -18,3 +17,10 @@
         </MudButton>
     }
 </MudStack>
+<MudPaper Class="pa-2" Style="position:fixed; bottom:64px; width:100%;">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+        <MudButton Href="/expense/list" Color="Color.Primary">Lista</MudButton>
+        <MudButton Href="/expense/summary">Podsumowanie</MudButton>
+        <MudButton Href="/expense/-1" Color="Color.Primary" Variant="Variant.Filled">Dodaj</MudButton>
+    </MudStack>
+</MudPaper>

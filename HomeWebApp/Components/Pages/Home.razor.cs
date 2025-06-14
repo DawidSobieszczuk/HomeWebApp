@@ -7,8 +7,7 @@ namespace HomeWebApp.Components.Pages
     {
         public Home(LoadingService loadingService, NavigationManager navigationManager)
         {
-            if(!loadingService.IsLoaded)
-                navigationManager.NavigateTo("/loading");
+            
         }
     }
 }

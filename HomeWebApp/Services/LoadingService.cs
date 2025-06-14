@@ -23,10 +23,9 @@
             _isLoading = true;
 
             if (!_expenseService.IsLoaded)
-            {
                 await _expenseService.LoadData();
+            if (!_radioStationService.IsLoaded)
                 await _radioStationService.LoadData();
-            }
 
             _isLoading = false;
             OnLoaded?.Invoke();

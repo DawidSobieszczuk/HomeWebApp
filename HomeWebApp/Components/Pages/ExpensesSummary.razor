@@ -1,4 +1,4 @@
-﻿@page "/expenses/summary"
+﻿@page "/expense/summary"
 @using HomeWebApp.Services
 
 <MudPaper>
@@ -30,3 +30,10 @@
     <MudText Typo="Typo.h3">@_expenseService.Totals[Month].Sum()</MudText>
     @* <MudChart ChartType="ChartType.Line" Width="90vw" XAxisLabels="@_xAxisLabels" ChartSeries="@_expenseService.Totals"></MudChart> *@
 </MudStack>
+<MudPaper Class="pa-2" Style="position:fixed; bottom:64px; width:100%;">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+        <MudButton Href="/expense/list">Lista</MudButton>
+        <MudButton Href="/expense/summary" Color="Color.Primary">Podsumowanie</MudButton>
+        <MudButton Href="/expense/-1" Color="Color.Primary" Variant="Variant.Filled">Dodaj</MudButton>
+    </MudStack>
+</MudPaper>

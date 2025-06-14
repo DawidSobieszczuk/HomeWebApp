@@ -28,6 +28,7 @@ namespace HomeWebApp.Components.Pages
             _jsRuntime.InvokeVoidAsync("myApp.newAudioSource", current.Url);
 
             _jsRuntime.InvokeVoidAsync("myApp.playAudio");
+            _isPlaying = true;
         }
 
         private void OnPlayClick(int stationId)

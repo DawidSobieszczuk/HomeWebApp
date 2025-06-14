@@ -10,6 +10,8 @@ namespace HomeWebApp.Components.Layout
         private readonly LoadingService _loadingService;
         private readonly NavigationManager _navigationManager;
 
+        private bool _isMenuOpen = false;
+
         MudTheme MyCustomTheme = new MudTheme()
         {
             PaletteDark = new PaletteDark()
@@ -25,7 +27,8 @@ namespace HomeWebApp.Components.Layout
                 TableStriped = new MudColor(0, 0, 0, 0.15),
                 TableHover = new MudColor(0, 0, 0, 0.1),
 
-                AppbarBackground = new MudColor(51, 51, 51, 1.0)
+                AppbarBackground = new MudColor(51, 51, 51, 1.0),
+                DrawerBackground = new MudColor(51, 51, 51, 1.0)
             },
             PaletteLight = new PaletteLight()
             {
@@ -48,10 +51,19 @@ namespace HomeWebApp.Components.Layout
         public MainLayout(LoadingService loadingService, NavigationManager navigationManager)
         {
             _loadingService = loadingService;
-            _navigationManager = navigationManager;
+            _navigationManager = navigationManager;            
+        }
 
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
             if (!_loadingService.IsLoaded && !_navigationManager.Uri.Contains("loading"))
                 _navigationManager.NavigateTo("/loading");
+        }
+
+        private void ToggleDrawer()
+        {
+            _isMenuOpen = !_isMenuOpen;
         }
     }
 }

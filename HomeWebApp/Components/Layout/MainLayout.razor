@@ -6,14 +6,32 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>    
+
+
+<MudLayout>   
+    <MudDrawer Elevation="1" @bind-Open="_isMenuOpen" Anchor="Anchor.End">
+        <MudSpacer />
+        <MudNavMenu Class="py-6">
+            <MudNavLink Href="/radio" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Radio">Radio</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.Note" Disabled>Notatki</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.DirectionsRun" Disabled>Aktywność</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.Fastfood" Disabled>Kalorie</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.Checklist" Disabled>Lista Zadań</MudNavLink>
+            <MudNavGroup Title="Wydatki" Icon="@Icons.Material.Filled.AttachMoney" Expanded="true">
+                <MudNavLink Href="/expense/list" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Lista</MudNavLink>
+                <MudNavLink Href="/expense/summary" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.InsertChart">Podsumowanie</MudNavLink>
+            </MudNavGroup>            
+        </MudNavMenu>
+    </MudDrawer>
     <MudMainContent Class="pa-0" Style="max-height: calc(100vh - (var(--mud-appbar-height))); height: auto; overflow-y: auto;">
         @Body
     </MudMainContent>
+
     <MudAppBar Bottom="true" Fixed="true">
         <MudButton Variant="Variant.Text" Href="/" Disabled=@(!_loadingService.IsLoaded)><strong>HomeApp</strong>&nbsp;v0.0.1-alpha</MudButton>
         <MudSpacer />
-        <MudMenu Variant="Variant.Text" Icon="@Icons.Material.Filled.Menu" Disabled="@(!_loadingService.IsLoaded)">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" OnClick="@ToggleDrawer" />
+        @* <MudMenu Variant="Variant.Text" Icon="@Icons.Material.Filled.Menu" Disabled="@(!_loadingService.IsLoaded)">
             <MudMenuItem Href="/radio" Label="Radio" Icon="@Icons.Material.Filled.Radio" />
             <MudMenuItem Label="Notatki" Icon="@Icons.Material.Filled.Note" Disabled />
             <MudMenuItem Label="Aktywność" Icon="@Icons.Material.Filled.DirectionsRun" Disabled/>
@@ -21,7 +39,7 @@
             <MudMenuItem Label="Lista Zadań" Icon="@Icons.Material.Filled.Checklist" Disabled/>
             <MudMenuItem Href="/expenses" Label="Wydatki" Icon="@Icons.Material.Filled.AttachMoney" />
             <MudMenuItem Href="/settings" Label="Ustawienia" Icon="@Icons.Material.Filled.Settings" Disabled />
-        </MudMenu>
+        </MudMenu> *@
     </MudAppBar>
 </MudLayout>
 

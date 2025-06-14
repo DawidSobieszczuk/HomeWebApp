@@ -6,23 +6,25 @@ namespace HomeWebApp.Services
     public class DBService
     {
         private readonly string _connectionString = "";
+        private readonly string _tablePrefix = "homeapp_";
 
         public DBService(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DS-Server") ?? _connectionString;
+            _tablePrefix = configuration["DatabaseTablePrefix"] ?? _tablePrefix;
         }
 
         public async Task<IEnumerable<RadioStation>> GetRadioStations()
         {
             var radioStations = new List<RadioStation>();
 
-            var sql = """
+            var sql = $"""
                 SELECT
                     radio_station_id
                     , radio_station_name
                     , radio_station_url
                 FROM
-                    radio_stations
+                    {_tablePrefix}radio_stations
                 WHERE
                     radio_station_deleted_at IS NULL
             """;
@@ -53,12 +55,12 @@ namespace HomeWebApp.Services
         {
             var users = new List<User>();
 
-            var sql = """
+            var sql = $"""
                 SELECT
                    user_id
                    , user_name
                 FROM
-                    users
+                    {_tablePrefix}users
             """;
 
             using (var connection = new MySqlConnection(_connectionString))
@@ -86,14 +88,14 @@ namespace HomeWebApp.Services
         {
             var expenseCategories = new List<ExpenseCategory>();
 
-            var sql = """
+            var sql = $"""
                 SELECT 
                    expense_category_id
                    , expense_category_name
                     , expense_category_color
                     , expense_category_description
                 FROM
-                    expense_categories
+                    {_tablePrefix}expense_categories
             """;
 
             using (var connection = new MySqlConnection(_connectionString))
@@ -125,7 +127,7 @@ namespace HomeWebApp.Services
             var expenseCategories = (await GetExpenseCategories()).ToList();
             var expenses = new List<Expense>();
 
-            var sql = """
+            var sql = $"""
                 SELECT 
                    expense_id
                    , expense_date
@@ -135,9 +137,10 @@ namespace HomeWebApp.Services
                    , image_id
                    , user_id
                 FROM
-                    expenses
+                    {_tablePrefix}expenses
                 WHERE
                     expense_delete_at IS NULL
+                ORDER BY expense_date
             """;
 
             using (var connection = new MySqlConnection(_connectionString))
@@ -167,8 +170,8 @@ namespace HomeWebApp.Services
     
         public async Task UpdateExpense(Expense expense)
         {
-            var sql = """
-                UPDATE expenses
+            var sql = $"""
+                UPDATE {_tablePrefix}expenses
                 SET
                    expense_date = @date,
                    expense_description = @description,
@@ -201,8 +204,8 @@ namespace HomeWebApp.Services
 
         public async Task<int> InsertExpense(Expense expense)
         {
-            var sql = """
-                INSERT INTO expenses (
+            var sql = $"""
+                INSERT INTO {_tablePrefix}expenses (
                     expense_date,
                     expense_description,
                     expense_category_id,
@@ -252,8 +255,8 @@ namespace HomeWebApp.Services
 
         public async Task DeleteExpense(Expense expense)
         {
-            var sql = """
-                UPDATE expenses
+            var sql = $"""
+                UPDATE {_tablePrefix}expenses
                 SET
                     expense_delete_at = @deleted_at
                 WHERE
